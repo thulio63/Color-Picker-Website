@@ -1,0 +1,25 @@
+body {
+  background-color: aquamarine;
+}
+h1 {
+  text-align: center;
+}
+button {
+  align-self: center;
+  vertical-align: middle;
+}
+input.changer {
+  align-content: center;
+  vertical-align: middle;
+}
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  border-top: 200px;
+  transform: translate(-50%, -50%);
+}
+.container {
+  position: relative;
+  height: 100px;
+}

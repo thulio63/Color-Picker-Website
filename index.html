@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Color Picker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script>
+      //gathers buttons and text
+      const changers = document.getElementsByClassName("changer");
+      const texts = document.getElementsByClassName("text");
+      function computeC(c) 
+        {
+            c = c / 255.0;
+            if (c <= 0.04045)
+            {
+                c = c/12.92;
+            } else c = (((c+0.055)/1.055) ^ 2.4);
+            window.alert(c);
+            return c;
+        }
+      //assigns screen color
+      function colorChanger() {
+        rcol = Math.random() * 255;
+        gcol = Math.random() * 255;
+        bcol = Math.random() * 255;
+        document.body.style.backgroundColor =
+          "rgb(" + rcol + "," + gcol + "," + bcol + ")";
+        
+        //Computes luminance of screen to assign text color
+        rC = computeC(rcol);
+        gC = computeC(gcol);
+        bC = computeC(bcol);
+
+        L = (0.2126 * rC) + (0.7152 * gC) + (0.0722 * bC);
+
+        //Assigns color to buttons
+        for (i = 0; i < changers.length; i++) {
+        changers[i].style.backgroundColor = 
+          "rgb(" + (255 - rcol) + "," + (255 - gcol) + "," + (255 - bcol) + ")";
+        }
+
+        //Assigns color to text
+        if (L > 0.179) {
+            for (i = 0; i < texts.length; i++) {
+                texts[i].style.color = "black";
+            }
+        } else {
+            for (i = 0; i < texts.length; i++) {
+                texts[i].style.color = "white";
+            }
+        }
+        //Prints RGB values
+        document.getElementById("read").innerText = "My Value: R: " + Math.floor(rcol) + " | G: " + Math.floor(gcol) + " | B: " + Math.floor(bcol);   
+      }
+    </script>
+
+    <h1 class="text">Welcome to the Color Picker!</h1>
+    <div class="container">
+      <div class="centered">
+        <input
+          id="click"
+          type="button"
+          class="changer"
+          value="Change Colors"
+          onclick="colorChanger();"
+        />
+        <span id="read"class="text">My Value:</span>
+        <script></script>
+      </div>
+    </div>
+
+  </body>
+</html>
