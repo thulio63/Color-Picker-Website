@@ -10,15 +10,17 @@
       //gathers buttons and text
       const changers = document.getElementsByClassName("changer");
       const texts = document.getElementsByClassName("text");
-      function computeC(c) 
+      //determines screen brightness thresh
+      luminance = 150; 
+      //determines appropriate text color
+      function useBlackText(r, g, b) 
         {
-            c = c / 255.0;
-            if (c <= 0.04045)
-            {
-                c = c/12.92;
-            } else c = (((c+0.055)/1.055) ^ 2.4);
-            window.alert(c);
-            return c;
+            r = r * 0.299;
+            g = g * 0.587;
+            b = b * 0.114;
+            if (r+g+b > luminance) {
+                return true;
+            } else {return false;}
         }
       //assigns screen color
       function colorChanger() {
@@ -27,22 +29,16 @@
         bcol = Math.random() * 255;
         document.body.style.backgroundColor =
           "rgb(" + rcol + "," + gcol + "," + bcol + ")";
-        
-        //Computes luminance of screen to assign text color
-        rC = computeC(rcol);
-        gC = computeC(gcol);
-        bC = computeC(bcol);
-
-        L = (0.2126 * rC) + (0.7152 * gC) + (0.0722 * bC);
 
         //Assigns color to buttons
         for (i = 0; i < changers.length; i++) {
         changers[i].style.backgroundColor = 
           "rgb(" + (255 - rcol) + "," + (255 - gcol) + "," + (255 - bcol) + ")";
+        useBlackText(255 - rcol,255 - gcol,255 - bcol) ? (changers[i].style.color = "black") : (changers[i].style.color = "white");
         }
 
         //Assigns color to text
-        if (L > 0.179) {
+        if (useBlackText(rcol,gcol,bcol)) {
             for (i = 0; i < texts.length; i++) {
                 texts[i].style.color = "black";
             }
