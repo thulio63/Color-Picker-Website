@@ -1,5 +1,5 @@
 body {
-  background-color: aquamarine;
+  background-color: white;
 }
 h1 {
   text-align: center;
@@ -7,10 +7,15 @@ h1 {
 button {
   align-self: center;
   vertical-align: middle;
+  border-radius: 4px;
+  padding: 10px 24px;
 }
 input.changer {
+  align-self: center;
   align-content: center;
   vertical-align: middle;
+  border-radius: 15px;
+  padding: 3px 7px;
 }
 .centered {
   position: absolute;
@@ -21,5 +26,17 @@ input.changer {
 }
 .container {
   position: relative;
-  height: 100px;
+  height: 50px;
+}
+.dyn:hover {
+    animation: color-change 2s infinite;
+}
+@keyframes color-change {
+  0% { color:crimson; }
+  33% { color:rgb(0, 202, 61); }
+  67% { color: rgb(14, 2, 236); }
+  100% { color:crimson; }
+}
+#copyConfirm {
+    visibility:hidden;
 }

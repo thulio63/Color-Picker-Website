@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Color Picker</title>
+    <title>Color Randomizer</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <script>
+      //starts rgb as 0 for white background
+      rcol = 0;
+      gcol = 0;
+      bcol = 0;
       //gathers buttons and text
       const changers = document.getElementsByClassName("changer");
       const texts = document.getElementsByClassName("text");
@@ -23,10 +27,12 @@
             } else {return false;}
         }
       //assigns screen color
-      function colorChanger() {
-        rcol = Math.random() * 255;
-        gcol = Math.random() * 255;
-        bcol = Math.random() * 255;
+      function colorChanger(red = false, green = false, blue = false) {
+        //hides Copied! text if not already
+        reveal();
+        !red ? rcol = Math.random() * 255: rcol = rcol;
+        !green ? gcol = Math.random() * 255: gcol = gcol;
+        !blue ? bcol = Math.random() * 255: bcol = bcol;
         document.body.style.backgroundColor =
           "rgb(" + rcol + "," + gcol + "," + bcol + ")";
 
@@ -48,13 +54,32 @@
             }
         }
         //Prints RGB values
-        document.getElementById("read").innerText = "My Value: R: " + Math.floor(rcol) + " | G: " + Math.floor(gcol) + " | B: " + Math.floor(bcol);   
+        document.getElementById("red").innerText = "| R: " + Math.floor(rcol);
+        document.getElementById("green").innerText = "| G: " + Math.floor(gcol);
+        document.getElementById("blue").innerText = "| B: " + Math.floor(bcol);
+        
+        + " | G: " + Math.floor(gcol) + " | B: " + Math.floor(bcol);   
+      }
+      function hexCalc(c) {
+        var hexVal = c.toString(16);
+        return hexVal.length == 1 ? "0" + hexVal: hexVal;
+      }
+      function colorHex(r,g,b) {
+        rHex = hexCalc(r);
+        gHex = hexCalc(g);
+        bHex = hexCalc(b);
+        hex = "#" + rHex + gHex + bHex;
+        navigator.clipboard.writeText(hex);
+      }
+      function reveal(show = false) {
+        show ? document.getElementById("copyConfirm").style.visibility = "visible": document.getElementById("copyConfirm").style.visibility = "hidden"; 
       }
     </script>
 
-    <h1 class="text">Welcome to the Color Picker!</h1>
+    <h1 class="text dyn"onclick="colorChanger();">Welcome to the Color Randomizer!</h1>
     <div class="container">
       <div class="centered">
+        <!--
         <input
           id="click"
           type="button"
@@ -62,10 +87,34 @@
           value="Change Colors"
           onclick="colorChanger();"
         />
-        <span id="read"class="text">My Value:</span>
-        <script></script>
+        -->
+        <span class="text dyn"onclick="colorChanger();">My Value: </span>
+        <span id="red"class="text dyn"onclick="colorChanger(false,true,true)">| R: 0 </span>
+        <span id="green"class="text dyn"onclick="colorChanger(true,false,true)">| G: 0 </span>
+        <span id="blue"class="text dyn"onclick="colorChanger(true,true,false)">| B: 0 </span> <!---
+        <br>
+        <input
+            type="button"
+            class="changer"
+            value="Copy Color Hex"
+            onclick="colorHex(Math.floor(rcol),Math.floor(gcol),Math.floor(bcol));"
+            /> -->
       </div>
     </div>
-
+    <div class="container">
+        <div class="centered">
+            <input
+            type="button"
+            class="changer"
+            value="Copy Color Hex"
+            onclick="colorHex(Math.floor(rcol),Math.floor(gcol),Math.floor(bcol));reveal(true);"
+            />
+        </div>
+    </div>
+    <div class="container">
+        <div class="centered">
+            <span id="copyConfirm" class="text">Copied!</span>
+        </div>
+    </div>
   </body>
 </html>
