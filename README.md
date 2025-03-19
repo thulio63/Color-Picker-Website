@@ -1,0 +1,1 @@
+A basic website that allows the user to randomize the background color of the screen, with the option of only affecting the red, green, or blue components seperately. Includes a button that will copy the hexcode of the current background color to your clipboard.
