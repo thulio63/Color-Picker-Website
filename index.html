@@ -64,7 +64,7 @@
         var hexVal = c.toString(16);
         return hexVal.length == 1 ? "0" + hexVal: hexVal;
       }
-      function colorHex(r,g,b) {
+      function copyColorHex(r,g,b) {
         rHex = hexCalc(r);
         gHex = hexCalc(g);
         bHex = hexCalc(b);
@@ -75,8 +75,11 @@
         show ? document.getElementById("copyConfirm").style.visibility = "visible": document.getElementById("copyConfirm").style.visibility = "hidden"; 
       }
     </script>
-
-    <h1 class="text dyn"onclick="colorChanger();">Welcome to the Color Randomizer!</h1>
+    <div class="bigContainer">
+        <div class="centered">
+            <h1 class="text dyn"onclick="colorChanger();">Welcome to the Color Randomizer!</h1>
+        </div>
+    </div>   
     <div class="container">
       <div class="centered">
         <!--
@@ -91,14 +94,7 @@
         <span class="text dyn"onclick="colorChanger();">My Value: </span>
         <span id="red"class="text dyn"onclick="colorChanger(false,true,true)">| R: 0 </span>
         <span id="green"class="text dyn"onclick="colorChanger(true,false,true)">| G: 0 </span>
-        <span id="blue"class="text dyn"onclick="colorChanger(true,true,false)">| B: 0 </span> <!---
-        <br>
-        <input
-            type="button"
-            class="changer"
-            value="Copy Color Hex"
-            onclick="colorHex(Math.floor(rcol),Math.floor(gcol),Math.floor(bcol));"
-            /> -->
+        <span id="blue"class="text dyn"onclick="colorChanger(true,true,false)">| B: 0 </span>
       </div>
     </div>
     <div class="container">
@@ -107,7 +103,7 @@
             type="button"
             class="changer"
             value="Copy Color Hex"
-            onclick="colorHex(Math.floor(rcol),Math.floor(gcol),Math.floor(bcol));reveal(true);"
+            onclick="copyColorHex(Math.floor(rcol),Math.floor(gcol),Math.floor(bcol));reveal(true);"
             />
         </div>
     </div>
